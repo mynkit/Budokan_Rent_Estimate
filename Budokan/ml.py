@@ -6,6 +6,7 @@ Examples:
     python ml.py
 '''
 
+import json
 import pickle
 import lightgbm as lgb
 import numpy as np
@@ -65,8 +66,8 @@ def accuracy_verification(correct_answer_data: pd.core.frame.DataFrame):
     result = {}
     result.update(lgbm_params)
     result.update({'MER': mer})
-    with open('accuracy/result.txt', mode='w') as f:
-        f.write(str(result))
+    with open('accuracy/result.json', mode='w') as f:
+        json.dump(result, f, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
 
 
 if __name__ == '__main__':
