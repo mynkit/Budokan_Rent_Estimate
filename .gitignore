@@ -3,3 +3,4 @@
 .DS_Store
 /__pycache__/
 /.ipynb_checkpoints/
+!prefecture_city_id_info.csv
