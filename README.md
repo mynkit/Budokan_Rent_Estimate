@@ -4,6 +4,14 @@
 
 儲かるのか，それともこれが最適解なのか
 
+## 学習
+
+* データセット
+    * [鑑定評価書データ](https://www.land.mlit.go.jp/landPrice/CSVDownloadServlet)
+* 学習モデル
+    * [LightGBM](https://lightgbm.readthedocs.io/en/latest/)
+    * [ハイパーパラメータ](https://github.com/mynkit/Budokan_Rent_Estimate/blob/master/Budokan/accuracy/result.json) (ほとんどいじってない)
+
 ## Result
 
 **結論： 武道館は賃貸オフィス物件になったほうが年間3億儲かる**
