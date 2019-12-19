@@ -35,7 +35,7 @@ MER (誤差率の絶対値の中央値): [3.71%](https://github.com/mynkit/Budok
 
 ### 武道館の月額賃料(推定値)
 
-[22006円/坪](https://github.com/mynkit/Budokan_Rent_Estimate/blob/master/Budokan/result/budokan_rent_tsubo.json)
+[22,006円/坪](https://github.com/mynkit/Budokan_Rent_Estimate/blob/master/Budokan/result/budokan_rent_tsubo.json)
 
 #### 武道館をオフィスにした場合の最大年間収入
 
