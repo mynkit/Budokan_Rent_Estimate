@@ -23,6 +23,16 @@ def add_latlon(df_: pd.core.frame.DataFrame):
     df.update(address_latlon)
     return df.reset_index(drop=True)
 
+def building_use_dummy(df_: pd.core.frame.DataFrame):
+    '''building_useカラムをダミー変数に変換する
+    '''
+    df = df_.copy()
+    df['office'] = df['building_use'].apply(lambda x: 1 if type(x) is str and '事' in x else 0)
+    df['retail'] = df['building_use'].apply(lambda x: 1 if type(x) is str and '店' in x else 0)
+    df['residential'] = df['building_use'].apply(lambda x: 1 if type(x) is str and ('住' in x or '居' in x) else 0)
+    df['hotel'] = df['building_use'].apply(lambda x: 1 if type(x) is str and 'ホテル' in x else 0)
+    df['industrial'] = df['building_use'].apply(lambda x: 1 if type(x) is str and ('工' in x or '倉' in x) else 0)
+    return df
 
 class Shaper:
     def __init__(self):
@@ -82,7 +92,7 @@ class Shaper:
             'road_width': data[42], # 道路幅員
             'nearest_station': data[50], # 最寄駅
             'nearest_station_distance': data[51], # 最寄駅までの距離
-            'lot_coverage': data[48], # 基準建ぺい率
+            'lot_coverage': data[68], # 基準建ぺい率
             'gross_floor_area': data[1032] / 0.3025,  # 延床面積
             'building_use_1': data[1043],  # 建物用途
             'rent_tsubo_1': (data[1048] + data[1117]) / 0.3025,  # 坪単価
@@ -114,6 +124,7 @@ def make_intermediate_data():
                                                          i, 'building_use_%d' % i]].rename(columns={'rent_tsubo_%d' % i: 'rent_tsubo', 'building_use_%d' % i: 'building_use'}) for i in [1, 2, 3, 4, 5]])
     correct_answer = correct_answer.dropna(
         subset=['rent_tsubo']).drop_duplicates()
+    correct_answer = building_use_dummy(correct_answer)
     return correct_answer
 
 
