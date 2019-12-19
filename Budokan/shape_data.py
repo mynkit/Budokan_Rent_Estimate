@@ -70,23 +70,30 @@ class Shaper:
         解凍したzipにデータ仕様がxlsxファイルとして存在しているので，それと見比べながら成形
         '''
         data = self.appraisal_report_non_shape.copy()
+        data.columns = [c+1 for c in data.columns] #エクセルの仕様書にカラム名を合わせる
         arr = {
-            'prefecture_id': data[1],  # 県id
-            'ward_city_id': data[2],  # 区,市のid
-            'registered_address': data[26],  # 住所(住居表示)
-            'landprice': data[19],  # 地価
-            'address': data[27],  # 住所(地番)
-            'gross_floor_area': data[1031] / 0.3025,  # 延床面積
-            'building_use_1': data[1042],  # 建物用途
-            'rent_tsubo_1': (data[1047] + data[1116]) / 0.3025,  # 坪単価
-            'building_use_2': data[1056],
-            'rent_tsubo_2': (data[1061] + data[1116]) / 0.3025,
-            'building_use_3': data[1070],
-            'rent_tsubo_3': (data[1075] + data[1116]) / 0.3025,
-            'building_use_4': data[1084],
-            'rent_tsubo_4': (data[1089] + data[1116]) / 0.3025,
-            'building_use_5': data[1098],
-            'rent_tsubo_5': (data[1103] + data[1116]) / 0.3025}
+            'prefecture_id': data[2],  # 県id
+            'ward_city_id': data[3],  # 区,市のid
+            'registered_address': data[27],  # 住所(住居表示)
+            'landprice': data[20],  # 地価
+            'address': data[28],  # 住所(地番)
+            'floors': data[37], # 地上階数
+            'basement_floors': data[38], # 地下階数
+            'road_width': data[42], # 道路幅員
+            'nearest_station': data[50], # 最寄駅
+            'nearest_station_distance': data[51], # 最寄駅までの距離
+            'lot_coverage': data[48], # 基準建ぺい率
+            'gross_floor_area': data[1032] / 0.3025,  # 延床面積
+            'building_use_1': data[1043],  # 建物用途
+            'rent_tsubo_1': (data[1048] + data[1117]) / 0.3025,  # 坪単価
+            'building_use_2': data[1057],
+            'rent_tsubo_2': (data[1062] + data[1117]) / 0.3025,
+            'building_use_3': data[1071],
+            'rent_tsubo_3': (data[1076] + data[1117]) / 0.3025,
+            'building_use_4': data[1085],
+            'rent_tsubo_4': (data[1090] + data[1117]) / 0.3025,
+            'building_use_5': data[1099],
+            'rent_tsubo_5': (data[1104] + data[1117]) / 0.3025}
         self.appraisal_report = pd.DataFrame(arr)
         del self.appraisal_report_non_shape
         del data
@@ -103,7 +110,7 @@ def make_intermediate_data():
     '''
     shaper = Shaper()
     shaper.shape()
-    correct_answer = pd.concat([shaper.appraisal_report[['landprice', 'address', 'gross_floor_area', 'latitude', 'longitude', 'rent_tsubo_%d' %
+    correct_answer = pd.concat([shaper.appraisal_report[['landprice', 'address', 'gross_floor_area', 'floors', 'road_width', 'nearest_station_distance', 'lot_coverage', 'latitude', 'longitude', 'rent_tsubo_%d' %
                                                          i, 'building_use_%d' % i]].rename(columns={'rent_tsubo_%d' % i: 'rent_tsubo', 'building_use_%d' % i: 'building_use'}) for i in [1, 2, 3, 4, 5]])
     correct_answer = correct_answer.dropna(
         subset=['rent_tsubo']).drop_duplicates()
