@@ -3,5 +3,8 @@
 .DS_Store
 /__pycache__/
 /.ipynb_checkpoints/
+/.cache/
+*.python_history
+*.bash_history
 !prefecture_city_id_info.csv
 !address_latlon.csv
