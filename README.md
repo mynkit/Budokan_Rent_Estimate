@@ -19,5 +19,18 @@ python budokan.py # 武道館に対して推定
 
 ### 交差検証結果
 
-MER (誤差率の絶対値の中央値): [3.71%](https://github.com/mynkit/Budokan_Rent_Estimate/blob/master/Budokan/accuracy/result.txt)
+MER (誤差率の絶対値の中央値): [3.71%](https://github.com/mynkit/Budokan_Rent_Estimate/blob/master/Budokan/accuracy/result.json)
 ![交差検証結果](https://github.com/mynkit/Budokan_Rent_Estimate/blob/master/Budokan/accuracy/accuracy.png)
+
+### 武道館の月額賃料(推定値)
+
+[22006円/坪](https://github.com/mynkit/Budokan_Rent_Estimate/blob/master/Budokan/result/budokan_rent_tsubo.json)
+
+#### 武道館をオフィスにした場合の最大年間収入
+
+```sh
+max ( 賃料(円/坪/月) * 賃貸可能面積(坪) * 稼働率 * 12ヶ月 )
+= 賃料 * 延床面積 * 1.0 * 12
+= 22006 * (21133.300 * 0.3025) * 12
+= 1,688,165,621 円 ( 約17億円 )
+```
