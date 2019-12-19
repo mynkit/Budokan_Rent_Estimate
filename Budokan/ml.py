@@ -6,6 +6,7 @@ Examples:
     python ml.py
 '''
 
+import os
 import json
 import pickle
 import lightgbm as lgb
@@ -67,6 +68,7 @@ def accuracy_verification(correct_answer_data: pd.core.frame.DataFrame):
 
 
 if __name__ == '__main__':
+    os.makedirs('intermediate', exist_ok=True)
     correct_answer_data = pd.read_csv('intermediate/correct_answer.csv')
     correct_answer_data = correct_answer_data.dropna(
         subset=const.feature_values, how='any')
