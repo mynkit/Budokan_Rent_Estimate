@@ -25,9 +25,10 @@ class Shaper:
         self.read_prefecture_city_id_info()
 
     def read_appraisal_report_csv(self):
-        '''鑑定評価書情報の東京と千葉分csvを読み込む
+        '''とりあえず鑑定評価書情報の東京分のcsvを読み込む
         '''
-        self.appraisal_report_non_shape = pd.concat([pd.read_csv('learning_data/2019_TAKUCHI_k_%d.csv' % prefecture_id, encoding='CP932', header=None) for prefecture_id in [12, 13]])
+        prefecture_ids = [12]
+        self.appraisal_report_non_shape = pd.concat([pd.read_csv('learning_data/2019_TAKUCHI_k_%d.csv' % prefecture_id, encoding='CP932', header=None, na_values=[0]) for prefecture_id in prefecture_ids])
 
     def read_prefecture_city_id_info(self):
         '''prefecture_id, city_idのinfoデータ読み込み
@@ -64,7 +65,7 @@ class Shaper:
             'registered_address': data[26], #住所(住居表示)
             'landprice': data[19], #地価
             'address': data[27], #住所(地番)
-            'gross_floor_area_sqm': data[1031], #延床面積
+            'gross_floor_area': data[1031] / 0.3025, #延床面積
             'building_use_1': data[1042], #建物用途
             'rent_tsubo_1': (data[1047] + data[1116]) / 0.3025, #坪単価
             'building_use_2': data[1056],
@@ -80,9 +81,20 @@ class Shaper:
         del data
         self.appraisal_report = self.shape_address_col(self.appraisal_report)
         self.appraisal_report = add_latlon(self.appraisal_report)
+        self.appraisal_report = self.appraisal_report.drop(['prefecture_id', 'ward_city_id', 'registered_address', 'prefecture_name', 'ward_city_name'], axis=1)
+
+def make_intermediate_data():
+    '''中間ファイル生成
+    Attributes:
+        correct_answer (pd.core.frame.DataFrame): 正解データ
+    '''
+    shaper = Shaper()
+    shaper.shape()
+    correct_answer = pd.concat([shaper.appraisal_report[['landprice', 'address', 'gross_floor_area', 'latitude', 'longitude', 'rent_tsubo_%d' % i, 'building_use_%d' % i]].rename(columns={'rent_tsubo_%d' % i: 'rent_tsubo', 'building_use_%d' % i: 'building_use'}) for i in [1, 2, 3, 4, 5]])
+    correct_answer = correct_answer.dropna(subset=['rent_tsubo']).drop_duplicates()
+    return correct_answer
 
 
 if __name__ == '__main__':
-    shaper = Shaper()
-    shaper.shape()
-    print(shaper.appraisal_report[shaper.appraisal_report.latitude.isnull()])
+    correct_answer = make_intermediate_data()
+    correct_answer.to_csv('intermediate/correct_answer.csv', index=False)
