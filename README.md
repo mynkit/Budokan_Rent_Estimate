@@ -15,7 +15,7 @@ python ml.py # 交差検証 + model&精度の保存
 python budokan.py # 武道館に対して推定
 ```
 
-## result
+## Result
 
 ### 交差検証結果
 
