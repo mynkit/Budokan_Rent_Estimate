@@ -6,10 +6,21 @@
 
 ## Usage
 
+### docker環境(推奨)
+
 ```shell
 docker-compose up -d --build # コンテナ立ち上げる
 docker-compose exec budokan bash # コンテナにログイン
 
+python shape_data.py # 鑑定評価書情報のデータ成形
+python ml.py # 交差検証 + model&精度の保存
+python budokan.py # 武道館に対して推定
+```
+
+### local環境
+
+```shell
+cd Budokan
 python shape_data.py # 鑑定評価書情報のデータ成形
 python ml.py # 交差検証 + model&精度の保存
 python budokan.py # 武道館に対して推定
