@@ -13,11 +13,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
-
-
-feature_values = ['landprice', 'gross_floor_area', 'floors', 'road_width', 'nearest_station_distance',
-                  'lot_coverage', 'office', 'retail', 'residential', 'hotel', 'industrial']
-target_col = 'rent_tsubo'
+import const
 
 
 def figure_accuracy(ans: np.ndarray, pred: np.ndarray):
@@ -42,8 +38,8 @@ def figure_accuracy(ans: np.ndarray, pred: np.ndarray):
 def accuracy_verification(correct_answer_data: pd.core.frame.DataFrame):
     '''交差検証
     '''
-    X = np.array(correct_answer_data[feature_values])
-    y = np.array(correct_answer_data[target_col])
+    X = np.array(correct_answer_data[const.feature_values])
+    y = np.array(correct_answer_data[const.target_col])
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
 
     lgb_train = lgb.Dataset(X_train, y_train)
@@ -73,5 +69,5 @@ def accuracy_verification(correct_answer_data: pd.core.frame.DataFrame):
 if __name__ == '__main__':
     correct_answer_data = pd.read_csv('intermediate/correct_answer.csv')
     correct_answer_data = correct_answer_data.dropna(
-        subset=feature_values, how='any')
+        subset=const.feature_values, how='any')
     accuracy_verification(correct_answer_data)
