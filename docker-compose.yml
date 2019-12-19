@@ -1,0 +1,10 @@
+version: '3'
+services:
+  budokan:
+    restart: always
+    build: .
+    container_name: 'budokan'
+    working_dir: '/root/'
+    tty: true
+    volumes:
+      - ./Budokan:/root/
