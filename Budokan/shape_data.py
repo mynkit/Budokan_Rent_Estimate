@@ -1,6 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+'''正解データを作る
+Examples:
+    python shape_data.py
+'''
+
 import pandas as pd
 
 
@@ -27,7 +32,7 @@ class Shaper:
     def read_appraisal_report_csv(self):
         '''とりあえず鑑定評価書情報の東京分のcsvを読み込む
         '''
-        prefecture_ids = [12]
+        prefecture_ids = [13]
         self.appraisal_report_non_shape = pd.concat([pd.read_csv(
             'learning_data/2019_TAKUCHI_k_%d.csv' % prefecture_id, encoding='CP932', header=None, na_values=[0]) for prefecture_id in prefecture_ids])
 
