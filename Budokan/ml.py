@@ -13,6 +13,7 @@ import lightgbm as lgb
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
 import matplotlib.pyplot as plt
 import const
 
@@ -32,8 +33,10 @@ def figure_accuracy(ans: np.ndarray, pred: np.ndarray):
     ax.set_ylabel("actual")
     plt.savefig('accuracy/accuracy.png')
     mer = np.median(abs(pred - ans)/ans)
-    print("MER(誤差率の絶対値の中央値): {:.2f}%".format(100*mer))
-    return mer
+    r2 = r2_score(pred, ans)
+    print('MER(誤差率の絶対値の中央値): {:.2f}%'.format(100*mer))
+    print('決定係数: {:.2f}%'.format(100*r2))
+    return {'MER': mer, 'R2': r2}
 
 
 def accuracy_verification(correct_answer_data: pd.core.frame.DataFrame):
@@ -58,11 +61,14 @@ def accuracy_verification(correct_answer_data: pd.core.frame.DataFrame):
 
     y_pred = model.predict(X_test, num_iteration=model.best_iteration)
 
-    mer = figure_accuracy(y_test, y_pred)
+    acc = figure_accuracy(y_test, y_pred)
+    mer = acc['MER']
+    r2 = acc['R2']
 
     result = {}
     result.update(lgbm_params)
     result.update({'MER': mer})
+    result.update({'R2': r2})
     with open('accuracy/result.json', mode='w') as f:
         json.dump(result, f, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
 

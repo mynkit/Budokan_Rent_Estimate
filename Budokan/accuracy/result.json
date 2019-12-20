@@ -1,5 +1,6 @@
 {
     "MER": 0.0371407254256672,
+    "R2": 0.6519001169879727,
     "metric": "rmse",
     "n_estimators": 200,
     "objective": "regression"

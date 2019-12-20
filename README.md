@@ -18,7 +18,7 @@
 
 ### 精度検証結果
 
-MER (誤差率の絶対値の中央値): [3.71%](https://github.com/mynkit/Budokan_Rent_Estimate/blob/master/Budokan/accuracy/result.json)
+決定係数: [65.19%](https://github.com/mynkit/Budokan_Rent_Estimate/blob/master/Budokan/accuracy/result.json)
 ![交差検証結果](https://github.com/mynkit/Budokan_Rent_Estimate/blob/master/Budokan/accuracy/accuracy.png)
 
 ### 武道館の月額賃料(推定値)
