@@ -1,6 +1,7 @@
 *.csv
 *.pyc
 *.pkl
+*.icloud
 .DS_Store
 /__pycache__/
 /.ipynb_checkpoints/
