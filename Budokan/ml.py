@@ -37,7 +37,7 @@ def figure_accuracy(ans: np.ndarray, pred: np.ndarray):
 
 
 def accuracy_verification(correct_answer_data: pd.core.frame.DataFrame):
-    '''交差検証
+    '''精度検証
     '''
     X = np.array(correct_answer_data[const.feature_values])
     y = np.array(correct_answer_data[const.target_col])
