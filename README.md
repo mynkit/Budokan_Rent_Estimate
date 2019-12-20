@@ -16,7 +16,7 @@
 
 **結論： 武道館は賃貸オフィス物件になったほうが年間3億儲かる**
 
-### 交差検証結果
+### 精度検証結果
 
 MER (誤差率の絶対値の中央値): [3.71%](https://github.com/mynkit/Budokan_Rent_Estimate/blob/master/Budokan/accuracy/result.json)
 ![交差検証結果](https://github.com/mynkit/Budokan_Rent_Estimate/blob/master/Budokan/accuracy/accuracy.png)
@@ -60,7 +60,7 @@ max ( 賃料(円/坪/月) * 賃貸可能面積(坪) * 稼働率 * 12ヶ月 )
 
 ## Required
 
-`Budokan/learning_data/`に[鑑定評価書データ](https://www.land.mlit.go.jp/landPrice/CSVDownloadServlet)の東京分データ(`2019_TAKUCHI_k_13.csv`)を格納する
+`Budokan/learning_data/`に[鑑定評価書データ](https://www.land.mlit.go.jp/landPrice/CSVDownloadServlet)の東京分(`2019_TAKUCHI_k_13.csv`)を格納する
 
 ## Usage
 
